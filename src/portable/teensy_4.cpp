@@ -230,6 +230,7 @@ FLASHMEM std::tuple<size_t, size_t> ram2_usage() {
     return ret;
 }
 
+#if defined(ARDUINO_TEENSY41)
 FLASHMEM std::tuple<size_t, size_t> ram3_usage() {
     const size_t ram_size { static_cast<size_t>(external_psram_size * (1 << 20)) };
     const size_t free { ram_size - static_cast<size_t>(reinterpret_cast<uint8_t*>(&_extram_end) - reinterpret_cast<uint8_t*>(&_extram_start)) };
@@ -237,6 +238,7 @@ FLASHMEM std::tuple<size_t, size_t> ram3_usage() {
     const std::tuple<size_t, size_t> ret { free, ram_size };
     return ret;
 }
+#endif
 
 FASTRUN uint64_t get_us() {
     uint32_t smc, scc, cyccnt;
